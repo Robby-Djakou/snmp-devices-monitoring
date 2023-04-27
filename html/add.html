@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add device</title>
+    <link rel="stylesheet" href="https://clipboardjs.com/bower_components/primer-css/css/primer.css" />
+    <link rel="stylesheet" href="https://clipboardjs.com/assets/styles/main.css" />
+    <link rel="stylesheet" href="../style/style.css">
+    <script src="../js/controller.js"></script>
+    <script src="../js/app.js"></script>
+</head>
+
+<body>
+    <div class="logo">
+        <!--<a href="index.html"><img style="height: 70px" src="" alt=""></a>-->
+        <h2>SNMP Device Monitoring with Grafana</h2>
+    </div>
+    <div class="feld">
+        <div class="box">
+            <form>
+                <input type="button" value="Go back!" onclick="history.back()">
+            </form>
+            <h2>add devices to SNMP Dashboard</h2>
+            <h3>Please give some informations of Device:</h3>
+            IP-Address SNMP Device: <input type="text" id="ipaddress"><br><br> SNMP Username: <input type="text" id="username"><br><br> SNMP security level:
+            <select style="margin-left: 12px;" name="securitylevel" id="securitylevel"> 
+                <option value="authNoPriv">snmp.SecurityLevel.authNoPriv</option>
+                <option value="authPriv">snmp.SecurityLevel.authPriv</option>
+                <option value="noAuthNoPriv">snmp.SecurityLevel.noAuthNoPriv</option>
+            </select>
+            <br><br> SNMP authentication protocol:
+            <select style="margin-left: 12px;" name="authenticationprotocol" id="authenticationprotocol">
+                <option value="MD5">MD5</option>
+                <option value="SHA">SHA</option>
+                <option value="SHA-224">SHA-224</option>
+                <option value="SHA-256">SHA-256</option>
+                <option value="SHA-384">SHA-384</option>
+                <option value="SHA-512">SHA-512</option>
+            </select>
+            <br><br> Authentication protocol pass phrase:
+            <input type="password" id="passphrase">
+            <br><br> privacy protocol:
+            <select style="margin-left: 12px;" name="privacyprotocol" id="privacyprotocol">
+                <option value=""></option>
+                <option value="DES">DES</option>
+                <option value="AES">AES</option>
+            </select>
+            <br><br> privacy keys:
+            <input type="password" id="privacykeys"><br><br>
+            <!--<input type="submit" value="Register" id="registerND">-->
+            <button id="btn" class="button1">
+                <p id="btnText">Submit</p>
+                <div class="check-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                        <path fill="transparent" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                    </svg>
+                </div>
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

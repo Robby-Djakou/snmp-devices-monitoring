@@ -55,6 +55,4 @@ printf '
 
   omit_hostname = false
 	
-' >> /etc/telegraf/telegraf.conf
-
-   
+' >>/etc/telegraf/telegraf.conf

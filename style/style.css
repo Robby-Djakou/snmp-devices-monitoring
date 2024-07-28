@@ -1,170 +1,182 @@
 * {
-    margin: 0;
-    padding: 0;
-    user-select: none;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: #02B06B;
+  background-color: #02b06b;
 }
 
 .box {
-    background-color: white;
-    padding-top: 30px;
-    padding: 30px;
+  background-color: white;
+  padding-top: 30px;
+  padding: 30px;
 }
 
 .logo {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .feld {
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    min-height: 50vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  min-height: 50vh;
 }
 
 .box h2 {
-    margin-bottom: 40px;
-    text-align: center;
-    font-size: 26px;
-    /*color: #019630;*/
-    font-family: sans-serif;
+  margin-bottom: 40px;
+  text-align: center;
+  font-size: 26px;
+  /*color: #019630;*/
+  font-family: sans-serif;
 }
 
 .button-style {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 * {
-    /*padding and border are included in the width and height of all elements */
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+  /*padding and border are included in the width and height of all elements */
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .button {
-    margin: 10%;
-    /* Centralize text */
-    text-align: center;
+  margin: 10%;
+  /* Centralize text */
+  text-align: center;
 }
 
 .btn-hover1.color {
-    /* Button gradient color. The gradient have four different main colors, with a gradient between these. Only 2 of these colors will be visible on the button at any point. Upon hover, the background moves to show the other 2 colors  */
-    background-image: linear-gradient(to right, #7bed6e, #547550, #2c970b, #85e71c);
-    /* Gives the button a shadow for a neon-like glow */
-    box-shadow: 0 4px 15px 0 rgba(85, 197, 41, 0.75);
+  /* Button gradient color. The gradient have four different main colors, with a gradient between these. Only 2 of these colors will be visible on the button at any point. Upon hover, the background moves to show the other 2 colors  */
+  background-image: linear-gradient(
+    to right,
+    #7bed6e,
+    #547550,
+    #2c970b,
+    #85e71c
+  );
+  /* Gives the button a shadow for a neon-like glow */
+  box-shadow: 0 4px 15px 0 rgba(85, 197, 41, 0.75);
 }
 
 .btn-hover2.color {
-    /* Button gradient color. The gradient have four different main colors, with a gradient between these. Only 2 of these colors will be visible on the button at any point. Upon hover, the background moves to show the other 2 colors  */
-    background-image: linear-gradient(to right, #ed6ea0, #ec8c69, #f7186a, #FBB03B);
-    /* Gives the button a shadow for a neon-like glow */
-    box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
+  /* Button gradient color. The gradient have four different main colors, with a gradient between these. Only 2 of these colors will be visible on the button at any point. Upon hover, the background moves to show the other 2 colors  */
+  background-image: linear-gradient(
+    to right,
+    #ed6ea0,
+    #ec8c69,
+    #f7186a,
+    #fbb03b
+  );
+  /* Gives the button a shadow for a neon-like glow */
+  box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
 }
 
 .btn-hover2,
 .btn-hover1 {
-    /* Button size */
-    height: 55px;
-    width: 200px;
-    /* Text size and boldness*/
-    font-size: 14px;
-    font-weight: 600;
-    /* Text color */
-    color: #fff;
-    /* Cursor pointer */
-    cursor: pointer;
-    /* Margin around button */
-    margin: 20px;
-    /* Removes default border around buttons */
-    border: none;
-    /* This affects the gradient background size. By putting a background width to be 300% (above 100%), only the beginning portion of this background will be shown. When hovered, the background will shift towards the end, giving the illustion of a moving gradient*/
-    background-size: 300% 100%;
-    /* Curves the button */
-    border-radius: 50px;
-    /* Transition duration and style */
-    moz-transition: all .5s ease-in-out;
-    -o-transition: all .5s ease-in-out;
-    -webkit-transition: all .5s ease-in-out;
-    transition: all .5s ease-in-out;
+  /* Button size */
+  height: 55px;
+  width: 200px;
+  /* Text size and boldness*/
+  font-size: 14px;
+  font-weight: 600;
+  /* Text color */
+  color: #fff;
+  /* Cursor pointer */
+  cursor: pointer;
+  /* Margin around button */
+  margin: 20px;
+  /* Removes default border around buttons */
+  border: none;
+  /* This affects the gradient background size. By putting a background width to be 300% (above 100%), only the beginning portion of this background will be shown. When hovered, the background will shift towards the end, giving the illustion of a moving gradient*/
+  background-size: 300% 100%;
+  /* Curves the button */
+  border-radius: 50px;
+  /* Transition duration and style */
+  moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .btn-hover1:hover,
 .btn-hover2:hover {
-    /* Changes the start position of the gradient background upon hover, giving the illusion of motion. Feel free to play around with this percentage value to see how it works */
-    background-position: 100% 0;
-    /* Duration of gradient transition */
-    moz-transition: all .5s ease-in-out;
-    -o-transition: all .5s ease-in-out;
-    -webkit-transition: all .5s ease-in-out;
-    transition: all .5s ease-in-out;
+  /* Changes the start position of the gradient background upon hover, giving the illusion of motion. Feel free to play around with this percentage value to see how it works */
+  background-position: 100% 0;
+  /* Duration of gradient transition */
+  moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 .button1 {
-    width: 135px;
-    height: 40px;
-    border: none;
-    outline: none;
-    background: #ff9500;
-    color: #fff;
-    font-size: 22px;
-    border-radius: 40px;
-    text-align: center;
-    box-shadow: 0 0 12px -2px rgba(0, 0, 0, 0.5);
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
+  width: 135px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background: #ff9500;
+  color: #fff;
+  font-size: 22px;
+  border-radius: 40px;
+  text-align: center;
+  box-shadow: 0 0 12px -2px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
 }
 
 .check-box {
-    width: 40px;
-    height: 40px;
-    border-radius: 40px;
-    box-shadow: 0 0 12px -2px rgba(0, 0, 0, 0.5);
-    position: absolute;
-    top: 0;
-    right: -40px;
-    opacity: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  box-shadow: 0 0 12px -2px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  right: -40px;
+  opacity: 0;
 }
 
 .check-box svg {
-    width: 20px;
-    margin: 10px;
+  width: 20px;
+  margin: 10px;
 }
 
 svg path {
-    stroke-width: 4;
-    stroke: #fff;
-    stroke-dasharray: 34;
-    stroke-dashoffset: 34;
-    stroke-linecap: round;
+  stroke-width: 4;
+  stroke: #fff;
+  stroke-dasharray: 34;
+  stroke-dashoffset: 34;
+  stroke-linecap: round;
 }
 
 .active {
-    background: #73ff00;
-    transition: 1s;
+  background: #73ff00;
+  transition: 1s;
 }
 
 .active .check-box {
-    right: 0;
-    opacity: 4;
-    transition: 1s;
+  right: 0;
+  opacity: 4;
+  transition: 1s;
 }
 
 .active p {
-    margin-right: 62px;
-    transition: 1s;
+  margin-right: 62px;
+  transition: 1s;
 }
 
 .active svg path {
-    stroke-dashoffset: 0;
-    transition: 1s;
-    transition-delay: 1s;
+  stroke-dashoffset: 0;
+  transition: 1s;
+  transition-delay: 1s;
 }

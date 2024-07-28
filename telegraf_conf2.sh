@@ -1,4 +1,3 @@
-
 printf '
 ###############################################################################
 #                            OUTPUT PLUGINS                                   #
@@ -82,9 +81,8 @@ printf '
   ping_interval = 1.0
   timeout = 1.0
 	
-' "$1" "$2" "$4" "$5" "$3" "$6" "$7" "$1">> /etc/telegraf/telegraf.conf
+' "$1" "$2" "$4" "$5" "$3" "$6" "$7" "$1" >>/etc/telegraf/telegraf.conf
 
 sudo service telegraf stop
 sudo service telegraf start
 sudo service telegraf restart
-

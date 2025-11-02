@@ -1,7 +1,7 @@
 import sys
 import textwrap
 import toml
-from command_runner import CommandRunner
+from lib.command_runner import CommandRunner
 from dataclasses import dataclass
 from pathlib import Path
 from lib.systemctl import Systemctl
@@ -16,23 +16,22 @@ def eprint(*args, **kwargs):
 
 @dataclass
 class Telegraf:
-    ip_address: str
+    ip_address: str = None
     """IP address to add new SNMP device or remove existing one."""
-    username: str
+    username: str = None
     """Username for SNMP authentication."""
-    security_level: str
+    security_level: str = None
     """Security level for SNMP (e.g., authPriv, authNoPriv, noAuthNoPriv)."""
-    authentication_protocol: str
+    authentication_protocol: str = None
     """Authentication protocol for SNMP (e.g., MD5, SHA)."""
-    passphrase: str
+    passphrase: str = None
     """Passphrase for SNMP authentication."""
-    privacy_protocol: str
+    privacy_protocol: str = None
     """Privacy protocol for SNMP (e.g., DES, AES)."""
-    privacy_keys: str
+    privacy_keys: str = None
     """Privacy keys for SNMP."""
 
-    @classmethod
-    def add_snmp_device_conf(cls, telegraf_conf_path: str | Path | None = None):
+    def add_snmp_device_conf(self, telegraf_conf_path: str | Path | None = None):
         """Add a new SNMP device configuration to the Telegraf configuration file."""
 
         if telegraf_conf_path is None:
@@ -44,28 +43,28 @@ class Telegraf:
         telegraf_conf = textwrap.dedent(
             f"""
             [[inputs.snmp]]
-            agents = ["udp://{cls.ip_address}:161"]
-            timeout = "5s"
-            sec_name = "{cls.username}"
-            auth_protocol = "{cls.authentication_protocol}"
-            auth_password = "{cls.passphrase}"
-            sec_level = "{cls.security_level}"
-            priv_protocol = "{cls.privacy_protocol}"
-            priv_password = "{cls.privacy_keys}"
-            community = "public"
-            name = "snmp"
-            version = 3
+                agents = ["udp://{self.ip_address}:161"]
+                timeout = "5s"
+                sec_name = "{self.username}"
+                auth_protocol = "{self.authentication_protocol}"
+                auth_password = "{self.passphrase}"
+                sec_level = "{self.security_level}"
+                priv_protocol = "{self.privacy_protocol}"
+                priv_password = "{self.privacy_keys}"
+                community = "public"
+                name = "snmp"
+                version = 3
             [[inputs.ping]]
-            urls = ["{cls.ip_address}"]
-            count = 1
-            ping_interval = 1.0
-            timeout = 1.0"""
+                urls = ["{self.ip_address}"]
+                count = 1
+                ping_interval = 1.0
+                timeout = 1.0
+            """
         )
         with open(telegraf_conf_path, "a") as conf_file:
             conf_file.write("\n" + telegraf_conf)
 
-    @classmethod
-    def remove_snmp_device_conf(cls, telegraf_conf_path: str | Path | None = None):
+    def remove_snmp_device_conf(self, telegraf_conf_path: str | Path | None = None):
         """Remove a SNMP device configuration from the Telegraf configuration file."""
 
         if telegraf_conf_path is None:
@@ -78,7 +77,7 @@ class Telegraf:
         parsed_telegraf_with_tolm["inputs"]["snmp"] = [
             dev
             for dev in parsed_telegraf_with_tolm["inputs"]["snmp"]
-            if f"udp://{cls.ip_address}:161" not in dev.get("agents", [])
+            if f"udp://{self.ip_address}:161" not in dev.get("agents", [])
         ]
         toml.dump(parsed_telegraf_with_tolm, telegraf_conf_path.open("w"))
 
@@ -155,12 +154,12 @@ class Telegraf:
 
             # Configuration for sending metrics to InfluxDB
             [[outputs.influxdb]]
-            urls = ["http://127.0.0.1:8086"]
-            database = "telegraf"
+                urls = ["http://127.0.0.1:8086"]
+                database = "telegraf"
 
-            ## HTTP Basic Auth
-            username = "telegraf"
-            password = "telegraf"
+                ## HTTP Basic Auth
+                username = "telegraf"
+                password = "telegraf"
 
             # SNMP Input Plugin Configurations
             [[inputs.snmp.field]]

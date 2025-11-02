@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from command_runner import CommandRunner
+from lib.command_runner import CommandRunner
 import sys
 
 

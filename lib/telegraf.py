@@ -1,9 +1,9 @@
+import sys
+import textwrap
+import toml
+from command_runner import CommandRunner
 from dataclasses import dataclass
 from pathlib import Path
-import sys
-from command_runner import CommandRunner
-import textwrap
-
 from lib.systemctl import Systemctl
 
 
@@ -17,7 +17,7 @@ def eprint(*args, **kwargs):
 @dataclass
 class Telegraf:
     ip_address: str
-    """IP address of the new snmp device."""
+    """IP address to add new SNMP device or remove existing one."""
     username: str
     """Username for SNMP authentication."""
     security_level: str
@@ -43,15 +43,6 @@ class Telegraf:
 
         telegraf_conf = textwrap.dedent(
             f"""
-            # Configuration for sending metrics to InfluxDB
-            [[outputs.influxdb]]
-            urls = ["http://127.0.0.1:8086"]
-            database = "telegraf"
-
-            ## HTTP Basic Auth
-            username = "telegraf"
-            password = "telegraf"
-
             [[inputs.snmp]]
             agents = ["udp://{cls.ip_address}:161"]
             timeout = "5s"
@@ -64,56 +55,6 @@ class Telegraf:
             community = "public"
             name = "snmp"
             version = 3
-            [[inputs.snmp.field]]
-                name = "uptime"
-                oid = ".1.3.6.1.2.1.1.3.0"
-            [[inputs.snmp.field]]
-                name = "gebaeude"
-                oid = ".1.3.6.1.2.1.1.5.0"
-
-            [[inputs.snmp.table]]
-            name = "DATA"
-            inherit_tags = [ "source" ]
-            [[inputs.snmp.table.field]]
-                name = "ifName"
-                oid = ".1.3.6.1.2.1.31.1.1.1.1"
-                is_tag = true
-            [[inputs.snmp.table.field]]
-                name = "ifHCInOctets"
-                oid = ".1.3.6.1.2.1.31.1.1.1.6"
-            [[inputs.snmp.table.field]]
-                name = "ifHCOutOctets"
-                oid = ".1.3.6.1.2.1.31.1.1.1.10"
-            [[inputs.snmp.table.field]]
-                name = "ifInDiscards"
-                oid = ".1.3.6.1.2.1.2.2.1.13"
-            [[inputs.snmp.table.field]]
-                name = "ifOutDiscards"
-                oid = ".1.3.6.1.2.1.2.2.1.19"
-            [[inputs.snmp.table.field]]
-                name = "ifInErrors"
-                oid = ".1.3.6.1.2.1.2.2.1.14"
-            [[inputs.snmp.table.field]]
-                name = "ifOutErrors"
-                oid = ".1.3.6.1.2.1.2.2.1.20"
-            [[inputs.snmp.table.field]]
-                name = "ifInUnknownProtos"
-                oid = ".1.3.6.1.2.1.2.2.1.15"
-            [[inputs.snmp.table.field]]
-                name = "ifAlias"
-                oid = ".1.3.6.1.2.1.31.1.1.1.18"
-                is_tag = true
-            [[inputs.snmp.table.field]]
-                name = "ifHighSpeed"
-                oid = ".1.3.6.1.2.1.31.1.1.1.15"
-            [[inputs.snmp.table.field]]
-                name = "ifAdminStatus"
-                oid = ".1.3.6.1.2.1.2.2.1.7"
-                is_tag = true
-            [[inputs.snmp.table.field]]
-                name = "ifOperStatus"
-                oid = ".1.3.6.1.2.1.2.2.1.8"
-
             [[inputs.ping]]
             urls = ["{cls.ip_address}"]
             count = 1
@@ -123,7 +64,26 @@ class Telegraf:
         with open(telegraf_conf_path, "a") as conf_file:
             conf_file.write("\n" + telegraf_conf)
 
-    def create_new_snmp_conf_header(self, telegraf_conf_path: str | Path | None = None):
+    @classmethod
+    def remove_snmp_device_conf(cls, telegraf_conf_path: str | Path | None = None):
+        """Remove a SNMP device configuration from the Telegraf configuration file."""
+
+        if telegraf_conf_path is None:
+            telegraf_conf_path = Path("/etc/telegraf/telegraf.conf")
+
+        if isinstance(telegraf_conf_path, str):
+            telegraf_conf_path = Path(telegraf_conf_path)
+
+        parsed_telegraf_with_tolm = toml.load(telegraf_conf_path)
+        parsed_telegraf_with_tolm["inputs"]["snmp"] = [
+            dev
+            for dev in parsed_telegraf_with_tolm["inputs"]["snmp"]
+            if f"udp://{cls.ip_address}:161" not in dev.get("agents", [])
+        ]
+        toml.dump(parsed_telegraf_with_tolm, telegraf_conf_path.open("w"))
+
+    @staticmethod
+    def create_new_snmp_conf_header(telegraf_conf_path: str | Path | None = None):
         """Create a new Telegraf SNMP configuration file header."""
 
         if telegraf_conf_path is None:
@@ -192,6 +152,65 @@ class Telegraf:
             hostname = ""
 
             omit_hostname = false
+
+            # Configuration for sending metrics to InfluxDB
+            [[outputs.influxdb]]
+            urls = ["http://127.0.0.1:8086"]
+            database = "telegraf"
+
+            ## HTTP Basic Auth
+            username = "telegraf"
+            password = "telegraf"
+
+            # SNMP Input Plugin Configurations
+            [[inputs.snmp.field]]
+                name = "uptime"
+                oid = ".1.3.6.1.2.1.1.3.0"
+            [[inputs.snmp.field]]
+                name = "gebaeude"
+                oid = ".1.3.6.1.2.1.1.5.0"
+            [[inputs.snmp.table]]
+            name = "DATA"
+            inherit_tags = [ "source" ]
+            [[inputs.snmp.table.field]]
+                name = "ifName"
+                oid = ".1.3.6.1.2.1.31.1.1.1.1"
+                is_tag = true
+            [[inputs.snmp.table.field]]
+                name = "ifHCInOctets"
+                oid = ".1.3.6.1.2.1.31.1.1.1.6"
+            [[inputs.snmp.table.field]]
+                name = "ifHCOutOctets"
+                oid = ".1.3.6.1.2.1.31.1.1.1.10"
+            [[inputs.snmp.table.field]]
+                name = "ifInDiscards"
+                oid = ".1.3.6.1.2.1.2.2.1.13"
+            [[inputs.snmp.table.field]]
+                name = "ifOutDiscards"
+                oid = ".1.3.6.1.2.1.2.2.1.19"
+            [[inputs.snmp.table.field]]
+                name = "ifInErrors"
+                oid = ".1.3.6.1.2.1.2.2.1.14"
+            [[inputs.snmp.table.field]]
+                name = "ifOutErrors"
+                oid = ".1.3.6.1.2.1.2.2.1.20"
+            [[inputs.snmp.table.field]]
+                name = "ifInUnknownProtos"
+                oid = ".1.3.6.1.2.1.2.2.1.15"
+            [[inputs.snmp.table.field]]
+                name = "ifAlias"
+                oid = ".1.3.6.1.2.1.31.1.1.1.18"
+                is_tag = true
+            [[inputs.snmp.table.field]]
+                name = "ifHighSpeed"
+                oid = ".1.3.6.1.2.1.31.1.1.1.15"
+            [[inputs.snmp.table.field]]
+                name = "ifAdminStatus"
+                oid = ".1.3.6.1.2.1.2.2.1.7"
+                is_tag = true
+            [[inputs.snmp.table.field]]
+                name = "ifOperStatus"
+                oid = ".1.3.6.1.2.1.2.2.1.8"
             """
         )
 

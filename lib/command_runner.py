@@ -1,5 +1,5 @@
-import subprocess
 from lib.shell import Shell
+import subprocess
 
 
 class CommandRunner(Shell):

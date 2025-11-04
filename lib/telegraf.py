@@ -2,7 +2,7 @@ import sys
 import textwrap
 import toml
 from lib.command_runner import CommandRunner
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from lib.systemctl import Systemctl
 
@@ -16,20 +16,8 @@ def eprint(*args, **kwargs):
 
 @dataclass
 class Telegraf:
-    ip_address: str = None
-    """IP address to add new SNMP device or remove existing one."""
-    username: str = None
-    """Username for SNMP authentication."""
-    security_level: str = None
-    """Security level for SNMP (e.g., authPriv, authNoPriv, noAuthNoPriv)."""
-    authentication_protocol: str = None
-    """Authentication protocol for SNMP (e.g., MD5, SHA)."""
-    passphrase: str = None
-    """Passphrase for SNMP authentication."""
-    privacy_protocol: str = None
-    """Privacy protocol for SNMP (e.g., DES, AES)."""
-    privacy_keys: str = None
-    """Privacy keys for SNMP."""
+    devices: dict = field(default_factory=dict)
+    """Dictionary to hold SNMP device configurations."""
 
     def add_snmp_device_conf(self, telegraf_conf_path: str | Path | None = None):
         """Add a new SNMP device configuration to the Telegraf configuration file."""
@@ -40,46 +28,40 @@ class Telegraf:
         if isinstance(telegraf_conf_path, str):
             telegraf_conf_path = Path(telegraf_conf_path)
 
-        telegraf_conf = textwrap.dedent(
-            f"""
-            [[inputs.snmp]]
-                agents = ["udp://{self.ip_address}:161"]
-                timeout = "5s"
-                sec_name = "{self.username}"
-                auth_protocol = "{self.authentication_protocol}"
-                auth_password = "{self.passphrase}"
-                sec_level = "{self.security_level}"
-                priv_protocol = "{self.privacy_protocol}"
-                priv_password = "{self.privacy_keys}"
-                community = "public"
-                name = "snmp"
-                version = 3
-            [[inputs.ping]]
-                urls = ["{self.ip_address}"]
-                count = 1
-                ping_interval = 1.0
-                timeout = 1.0
-            """
-        )
-        with open(telegraf_conf_path, "a") as conf_file:
-            conf_file.write("\n" + telegraf_conf)
+        for device in self.devices:
+            eprint(f"Adding SNMP device configuration for IP: {device}")
+            ip_address = device
+            device_data = self.devices.get(device)
+            username = device_data.get("username", "")
+            security_level = device_data.get("security_level", "")
+            authentication_protocol = device_data.get("authentication_protocol", "")
+            passphrase = device_data.get("passphrase", "")
+            privacy_protocol = device_data.get("privacy_protocol", "")
+            privacy_keys = device_data.get("privacy_keys", "")
 
-    def remove_snmp_device_conf(self, telegraf_conf_path: str | Path | None = None):
-        """Remove a SNMP device configuration from the Telegraf configuration file."""
-
-        if telegraf_conf_path is None:
-            telegraf_conf_path = Path("/etc/telegraf/telegraf.conf")
-
-        if isinstance(telegraf_conf_path, str):
-            telegraf_conf_path = Path(telegraf_conf_path)
-
-        parsed_telegraf_with_tolm = toml.load(telegraf_conf_path)
-        parsed_telegraf_with_tolm["inputs"]["snmp"] = [
-            dev
-            for dev in parsed_telegraf_with_tolm["inputs"]["snmp"]
-            if f"udp://{self.ip_address}:161" not in dev.get("agents", [])
-        ]
-        toml.dump(parsed_telegraf_with_tolm, telegraf_conf_path.open("w"))
+            telegraf_conf = textwrap.dedent(
+                f"""
+                [[inputs.snmp]]
+                    agents = ["udp://{ip_address}:161"]
+                    timeout = "5s"
+                    sec_name = "{username}"
+                    auth_protocol = "{authentication_protocol}"
+                    auth_password = "{passphrase}"
+                    sec_level = "{security_level}"
+                    priv_protocol = "{privacy_protocol}"
+                    priv_password = "{privacy_keys}"
+                    community = "public"
+                    name = "snmp"
+                    version = 3
+                [[inputs.ping]]
+                    urls = ["{ip_address}"]
+                    count = 1
+                    ping_interval = 1.0
+                    timeout = 1.0
+                """
+            )
+            with open(telegraf_conf_path, "a") as conf_file:
+                conf_file.write("\n" + telegraf_conf)
 
     @staticmethod
     def create_new_snmp_conf_header(telegraf_conf_path: str | Path | None = None):

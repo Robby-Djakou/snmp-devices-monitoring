@@ -1,0 +1,36 @@
+name: SNMP Tests
+
+on:
+  push:
+    branches: [ '**' ]
+  pull_request:
+    branches: [ '**' ]
+
+jobs:
+    unittests:
+        name: Run pytest and upload report
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v5
+
+        - name: Set up Python
+          uses: actions/setup-python@v6
+          with:
+            python-version: "3.12"
+
+        - name: Install dependencies
+          run: |
+            mkdir -p test-results
+            pip install pytest
+
+        - name: Run tests
+          run: |
+            pytest --junitxml="test-results/results.xml"
+
+        - name: Upload test report artifact
+          uses: actions/upload-artifact@v5
+          with:
+            name: pytest-report
+            path: test-results/results.xml

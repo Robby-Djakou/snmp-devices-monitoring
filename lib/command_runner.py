@@ -7,7 +7,8 @@ class CommandRunner(Shell):
     A concrete implementation using the subprocess.run() function.
     """
 
-    def run_command(self, command: str, timeout: int = 60) -> tuple[str, str, int]:
+    @staticmethod
+    def run_command(command: str, timeout: int = 60) -> tuple[str, str, int]:
         try:
             result = subprocess.run(
                 command,

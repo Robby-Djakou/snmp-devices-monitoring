@@ -1,10 +1,9 @@
-import sys
-import textwrap
-import toml
 from lib.command_runner import CommandRunner
 from dataclasses import dataclass, field
 from pathlib import Path
 from lib.systemctl import Systemctl
+import sys
+import textwrap
 
 
 def eprint(*args, **kwargs):
@@ -198,50 +197,52 @@ class Telegraf:
         with open(telegraf_conf_path, "w") as conf_file:
             conf_file.write(telegraf_conf)
 
-    def test_telegraf_conf(self, telegraf_conf_path: str | Path) -> bool:
+    @staticmethod
+    def test_telegraf_conf(telegraf_conf_path: str | Path = None) -> bool:
         """Test Telegraf configuration file for correctness."""
 
+        if telegraf_conf_path is None:
+            telegraf_conf_path = Path("/etc/telegraf/telegraf.conf")
         if isinstance(telegraf_conf_path, str):
             telegraf_conf_path = Path(telegraf_conf_path)
         cmd = f"telegraf --config {telegraf_conf_path} --test"
-        command_runner = CommandRunner()
-        _, err, ret = command_runner.run_command(cmd)
+        _, err, ret = CommandRunner.run_command(cmd)
         if ret != 0:
-            print(f"Telegraf configuration test failed: {err}")
+            eprint(f"Telegraf configuration test failed: {err}")
             return False
         return True
 
-    def run_telegraf_with_custom_conf(self, telegraf_conf_path: str | Path) -> None:
+    @staticmethod
+    def run_telegraf_with_custom_conf(telegraf_conf_path: str | Path) -> None:
         """Run Telegraf with a custom configuration file."""
 
         if isinstance(telegraf_conf_path, str):
             telegraf_conf_path = Path(telegraf_conf_path)
         cmd = f"telegraf --config {telegraf_conf_path}"
-        command_runner = CommandRunner()
-        _, err, ret = command_runner.run_command(cmd)
+        _, err, ret = CommandRunner.run_command(cmd)
         if ret != 0:
-            print(f"Telegraf command failed: {err}")
+            eprint(f"Telegraf command failed: {err}")
             return
         eprint("Telegraf is running with custom configuration.")
 
-    def run_telegraf_with_default_conf(self) -> None:
+    @staticmethod
+    def run_telegraf_with_default_conf() -> None:
         """Run Telegraf with the default configuration file."""
 
         cmd = "telegraf"
-        command_runner = CommandRunner()
-        _, err, ret = command_runner.run_command(cmd)
+        _, err, ret = CommandRunner.run_command(cmd)
         if ret != 0:
             print(f"Telegraf command failed: {err}")
             return
         eprint(
-            "Telegraf is running with default configuration in /etc/telegraf/telegraf.conf."
+            "Telegraf is running with default configuration in '/etc/telegraf/telegraf.conf'."
         )
 
-    def start_telegraf_service(self) -> None:
+    @staticmethod
+    def start_telegraf_service() -> None:
         """Start the Telegraf service using systemctl."""
 
-        systemctl = Systemctl()
-        _, err, ret = systemctl.start_unit("telegraf.service")
+        _, err, ret = Systemctl.start_unit("telegraf.service")
         if ret != 0:
             print(f"Failed to start Telegraf service: {err}")
             return
@@ -250,8 +251,7 @@ class Telegraf:
     def stop_telegraf_service(self) -> None:
         """Stop the Telegraf service using systemctl."""
 
-        systemctl = Systemctl()
-        _, err, ret = systemctl.stop_unit("telegraf.service")
+        _, err, ret = Systemctl.stop_unit("telegraf.service")
         if ret != 0:
             print(f"Failed to stop Telegraf service: {err}")
             return
@@ -260,8 +260,7 @@ class Telegraf:
     def restart_telegraf_service(self) -> None:
         """Restart the Telegraf service using systemctl."""
 
-        systemctl = Systemctl()
-        _, err, ret = systemctl.restart_unit("telegraf.service")
+        _, err, ret = Systemctl.restart_unit("telegraf.service")
         if ret != 0:
             print(f"Failed to restart Telegraf service: {err}")
             return
@@ -270,5 +269,4 @@ class Telegraf:
     def is_telegraf_service_active(self) -> bool:
         """Check if the Telegraf service is active using systemctl."""
 
-        systemctl = Systemctl()
-        return systemctl.is_unit_active("telegraf.service")
+        return Systemctl.is_unit_active("telegraf.service")

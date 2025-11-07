@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remove SNMP Device</title>
+  <link rel="stylesheet" href="https://clipboardjs.com/bower_components/primer-css/css/primer.css" />
+  <link rel="stylesheet" href="https://clipboardjs.com/assets/styles/main.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <script src="{{ url_for('static', filename='js/controller.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+
+<body>
+  <div class="logo">
+    <h1 class="text-logo">SNMP Dashboard</h1>
+  </div>
+
+  <div class="feld">
+    <div class="box">
+      <form>
+        <input type="button" value="Go back!" onclick="history.back()" />
+      </form>
+      <h2>Remove SNMP Devices from Grafana Dashboard</h2>
+      <h3>Please give the IP Address of the Device:</h3>
+      IP-address SNMP device:
+      <input type="text" id="ipaddress" /><br /><br /><br />
+      <button id="submit-remove-btn-id" class="submit-btn-class">
+        <p id="submit-text-id">Submit</p>
+        <div class="check-box">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+            <path fill="transparent" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+          </svg>
+        </div>
+      </button><br /><br />
+      <div id="message-id"></div>
+    </div>
+  </div>
+</body>
+
+</html>

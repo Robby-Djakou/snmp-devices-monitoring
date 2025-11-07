@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SNMP Device Monitoring with Grafana</title>
+  <link rel="stylesheet" href="https://clipboardjs.com/bower_components/primer-css/css/primer.css" />
+  <link rel="stylesheet" href="https://clipboardjs.com/assets/styles/main.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+  <div class="logo">
+    <h1 class="text-logo">SNMP Dashboard</h1>
+  </div>
+
+  <section class="software-description">
+    <h2>What This Software Does</h2>
+    <p>
+      This SNMP Device Monitoring software allows network administrators and engineers to
+      easily add, remove, and monitor SNMP-enabled devices. It collects device metrics
+      and presents them in a Grafana dashboard, providing real-time insights into network
+      performance, availability, and device health.
+    </p>
+    <p>
+      Features include:
+    <ul>
+      <li>Add or remove SNMP devices from the dashboard</li>
+      <li>Validate device IP addresses and SNMP credentials</li>
+      <li>Seamless integration with Grafana for visualization</li>
+      <li>User-friendly web interface for network management</li>
+    </ul>
+    </p>
+  </section>
+
+  <div class="feld">
+    <div class="box">
+      <h2>Add or Remove SNMP Devices for Monitoring with Grafana</h2>
+      <div class="button-style">
+        <div class="button">
+          <button onclick="window.location.href = '{{ url_for('add_dev') }}';" class="btn-hover1 color">
+            Add New Device
+          </button>
+        </div>
+        <div class="button">
+          <button onclick="window.location.href = '{{ url_for('remove_dev') }}';" class="btn-hover2 color">
+            Remove existing Device
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="about-author">
+    <h3>About the Author</h3>
+    <p>
+      Developed by <strong>Robby Courbis Tatchou Djakou</strong> —
+      <em>Software Engineer</em> passionate about Embedded Systems.
+    </p>
+    <p>
+      📧 Contact: <a href="mailto:robbycourbistatchoudjakou@gmail.com">robbycourbistatchoudjakou@gmail.com</a><br>
+      🌐 GitHub: <a href="https://github.com/Robby-Djakou" target="_blank">Robby Djakou</a><br>
+      💼 LinkedIn: <a href="https://www.linkedin.com/in/robby-courbis-tatchou-djakou-13b404171" target="_blank">
+        Robby Courbis Tatchou Djakou
+      </a>
+    </p>
+  </footer>
+
+</body>
+
+</html>

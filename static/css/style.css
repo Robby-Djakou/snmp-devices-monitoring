@@ -56,26 +56,22 @@ body {
 
 .btn-hover1.color {
   /* Button gradient color. The gradient have four different main colors, with a gradient between these. Only 2 of these colors will be visible on the button at any point. Upon hover, the background moves to show the other 2 colors  */
-  background-image: linear-gradient(
-    to right,
-    #7bed6e,
-    #547550,
-    #2c970b,
-    #85e71c
-  );
+  background-image: linear-gradient(to right,
+      #7bed6e,
+      #547550,
+      #2c970b,
+      #85e71c);
   /* Gives the button a shadow for a neon-like glow */
   box-shadow: 0 4px 15px 0 rgba(85, 197, 41, 0.75);
 }
 
 .btn-hover2.color {
   /* Button gradient color. The gradient have four different main colors, with a gradient between these. Only 2 of these colors will be visible on the button at any point. Upon hover, the background moves to show the other 2 colors  */
-  background-image: linear-gradient(
-    to right,
-    #ed6ea0,
-    #ec8c69,
-    #f7186a,
-    #fbb03b
-  );
+  background-image: linear-gradient(to right,
+      #ed6ea0,
+      #ec8c69,
+      #f7186a,
+      #fbb03b);
   /* Gives the button a shadow for a neon-like glow */
   box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
 }
@@ -101,7 +97,6 @@ body {
   /* Curves the button */
   border-radius: 50px;
   /* Transition duration and style */
-  moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
@@ -112,14 +107,14 @@ body {
   /* Changes the start position of the gradient background upon hover, giving the illusion of motion. Feel free to play around with this percentage value to see how it works */
   background-position: 100% 0;
   /* Duration of gradient transition */
-  moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
-.button1 {
+
+.submit-btn-class {
   width: 135px;
   height: 40px;
   border: none;
@@ -179,4 +174,78 @@ svg path {
   stroke-dashoffset: 0;
   transition: 1s;
   transition-delay: 1s;
+}
+
+.about-author {
+  margin-top: 50px;
+  padding: 25px;
+  text-align: center;
+  background-color: #f9fafc;
+  border-top: 2px solid #ddd;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.about-author h3 {
+  font-size: 22px;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.about-author p {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.about-author a {
+  color: #0077b5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.about-author a:hover {
+  text-decoration: underline;
+  color: #005582;
+}
+
+.text-logo {
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+  color: #005582;
+  margin: 0;
+}
+
+.software-description {
+  margin: 30px auto;
+  padding: 20px;
+  max-width: 800px;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background-color: #f4f6f8;
+  border-radius: 10px;
+}
+
+.software-description h2 {
+  font-size: 24px;
+  color: #0077b5;
+  margin-bottom: 15px;
+}
+
+.software-description p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.software-description ul {
+  text-align: left;
+  display: inline-block;
+  margin-top: 10px;
+  color: #555;
+}
+
+.software-description li {
+  margin-bottom: 5px;
 }

@@ -13,6 +13,7 @@
 - [Contributing](#contributing)
 - [Author](#author)
 - [License](#license)
+- [TODO](#TODO)
 
 ---
 
@@ -84,4 +85,8 @@ Robby Courbis Tatchou Djakou — Software Engineer
 
 ## License
 
-[MIT License](LICENSE)
+See [MIT License](LICENSE)
+
+## TODO
+
+See [TODO.md](./TODO.md) for planned features and improvements.

@@ -3,7 +3,6 @@ from flask import Flask, jsonify, render_template, request
 from lib.database import Database
 from lib.telegraf import Telegraf
 from lib.validate_ipaddress import ValidateIPAddress
-import pdb
 
 app = Flask(__name__)
 

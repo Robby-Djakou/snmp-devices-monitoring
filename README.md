@@ -60,7 +60,7 @@ python app.py
 
 7. Open your browser at http://127.0.0.1:5000
 
-## Navigate to the home page.
+## Usage
 
 Use Add Device or Remove Device buttons to manage SNMP devices.
 

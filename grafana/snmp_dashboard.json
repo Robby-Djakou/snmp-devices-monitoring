@@ -21,14 +21,12 @@
       }
     ]
   },
-  "description": "Monitoring via SNMPv3",
+  "description": "Monitoring Network Devices  using SNMPv3",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1667287981211,
+  "id": 0,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "datasource": {
@@ -46,7 +44,7 @@
             "steps": [
               {
                 "color": "orange",
-                "value": null
+                "value": 0
               }
             ]
           }
@@ -65,6 +63,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -72,9 +71,11 @@
           "fields": "/^snmp\\.agent_host$/",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.5.2",
+      "pluginVersion": "12.2.1",
       "targets": [
         {
           "datasource": {
@@ -126,7 +127,7 @@
             "steps": [
               {
                 "color": "transparent",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -146,6 +147,7 @@
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -153,9 +155,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.5.2",
+      "pluginVersion": "12.2.1",
       "targets": [
         {
           "datasource": {
@@ -199,7 +203,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -219,6 +223,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "allValues"
@@ -226,9 +231,11 @@
           "fields": "",
           "values": true
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.5.2",
+      "pluginVersion": "12.2.1",
       "targets": [
         {
           "datasource": {
@@ -291,8 +298,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "MG9I2Cw7z"
+        "type": "datasource",
+        "uid": "grafana"
       },
       "fieldConfig": {
         "defaults": {
@@ -305,7 +312,7 @@
             "steps": [
               {
                 "color": "red",
-                "value": null
+                "value": 0
               }
             ]
           }
@@ -324,6 +331,7 @@
         "graphMode": "none",
         "justifyMode": "center",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -331,12 +339,14 @@
           "fields": "/^gebaeude$/",
           "values": false
         },
+        "showPercentChange": false,
         "text": {
           "titleSize": 1
         },
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.5.2",
+      "pluginVersion": "12.2.1",
       "targets": [
         {
           "datasource": {
@@ -381,17 +391,181 @@
           "tags": []
         }
       ],
-      "title": "HFU Gebäude",
+      "title": "SNMP Device Room",
       "type": "stat"
     },
     {
-      "columns": [],
       "datasource": {
         "type": "influxdb",
         "uid": "MG9I2Cw7z"
       },
       "description": "",
-      "fontSize": "100%",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Time"
+              },
+              {
+                "id": "custom.hideFrom.viz",
+                "value": true
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "AdminStatus"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#37872D",
+                      "value": 0
+                    },
+                    {
+                      "color": "#FF780A",
+                      "value": 2
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "OperStatus"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#37872D",
+                      "value": 0
+                    },
+                    {
+                      "color": "#FF780A",
+                      "value": 2
+                    },
+                    {
+                      "color": "rgb(36, 36, 36)",
+                      "value": 3
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Speed"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "Mbits"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#FA6400",
+                      "value": 0
+                    },
+                    {
+                      "color": "#1F60C4",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
       "gridPos": {
         "h": 9,
         "w": 24,
@@ -399,136 +573,11 @@
         "y": 10
       },
       "id": 10,
-      "links": [],
-      "pageSize": 500,
-      "scroll": true,
-      "showHeader": true,
-      "sort": {
-        "col": 6,
-        "desc": true
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true
       },
-      "styles": [
-        {
-          "$$hashKey": "object:109",
-          "alias": "Time",
-          "align": "auto",
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "pattern": "Time",
-          "type": "hidden"
-        },
-        {
-          "$$hashKey": "object:110",
-          "alias": "",
-          "align": "auto",
-          "colorMode": "cell",
-          "colors": [
-            "#37872D",
-            "#FF780A",
-            "#FF780A"
-          ],
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "AdminStatus",
-          "thresholds": [
-            "2"
-          ],
-          "type": "string",
-          "unit": "short",
-          "valueMaps": [
-            {
-              "$$hashKey": "object:148",
-              "text": "UP",
-              "value": "1"
-            },
-            {
-              "$$hashKey": "object:149",
-              "text": "Down",
-              "value": "2"
-            },
-            {
-              "$$hashKey": "object:150",
-              "text": "Testing",
-              "value": "3"
-            }
-          ]
-        },
-        {
-          "$$hashKey": "object:111",
-          "alias": "",
-          "align": "auto",
-          "colorMode": "cell",
-          "colors": [
-            "#37872D",
-            "#FF780A",
-            "rgb(36, 36, 36)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "OperStatus",
-          "thresholds": [
-            "2",
-            "3"
-          ],
-          "type": "string",
-          "unit": "short",
-          "valueMaps": [
-            {
-              "$$hashKey": "object:174",
-              "text": "UP",
-              "value": "1"
-            },
-            {
-              "$$hashKey": "object:175",
-              "text": "DOWN",
-              "value": "2"
-            },
-            {
-              "$$hashKey": "object:176",
-              "text": "Testing",
-              "value": "3"
-            },
-            {
-              "$$hashKey": "object:177",
-              "text": "Unkknown",
-              "value": "4"
-            },
-            {
-              "$$hashKey": "object:178",
-              "text": "Dormant",
-              "value": "5"
-            },
-            {
-              "$$hashKey": "object:179",
-              "text": "notPresent",
-              "value": "6"
-            },
-            {
-              "$$hashKey": "object:180",
-              "text": "LowerLayerDown",
-              "value": "7"
-            }
-          ]
-        },
-        {
-          "$$hashKey": "object:112",
-          "alias": "",
-          "align": "auto",
-          "colors": [
-            "#FA6400",
-            "#1F60C4",
-            "#8F3BB8"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "mappingType": 1,
-          "pattern": "Speed",
-          "thresholds": [
-            ""
-          ],
-          "type": "number",
-          "unit": "Mbits"
-        }
-      ],
+      "pluginVersion": "12.2.1",
       "targets": [
         {
           "datasource": {
@@ -634,19 +683,25 @@
         }
       ],
       "title": "Interfaces",
-      "transform": "table",
-      "type": "table-old"
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {
+            "reducers": []
+          }
+        }
+      ],
+      "type": "table"
     }
   ],
+  "preload": false,
   "refresh": "5s",
-  "schemaVersion": 36,
-  "style": "dark",
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
           "text": "10.10.1.125",
           "value": "10.10.1.125"
         },
@@ -655,17 +710,13 @@
           "uid": "MG9I2Cw7z"
         },
         "definition": "SHOW TAG VALUES FROM snmp WITH KEY=agent_host",
-        "hide": 0,
         "includeAll": false,
         "label": "IP Address",
-        "multi": false,
         "name": "Host",
         "options": [],
         "query": "SHOW TAG VALUES FROM snmp WITH KEY=agent_host",
         "refresh": 2,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -676,8 +727,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Monitoring SNMP HFU Network Device",
+  "title": "SNMP Network Device Monitoring",
   "uid": "8YxFISk4k",
-  "version": 31,
-  "weekStart": ""
+  "version": 14
 }

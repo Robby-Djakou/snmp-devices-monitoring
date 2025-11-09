@@ -14,6 +14,7 @@
 - [Author](#author)
 - [License](#license)
 - [TODO](#TODO)
+- [CHANGELOG](#CHANGELOG)
 
 ---
 
@@ -89,4 +90,8 @@ See [MIT License](LICENSE)
 
 ## TODO
 
-See [TODO.md](./TODO.md) for planned features and improvements.
+See [TODO](./TODO.md) for planned features and improvements.
+
+## CHANGELOG
+
+See [CHANGELOG](./CHANGELOG.md) for all notable changes

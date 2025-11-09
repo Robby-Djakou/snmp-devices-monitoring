@@ -250,7 +250,8 @@ class Telegraf:
             return
         eprint("Telegraf service started successfully.")
 
-    def stop_telegraf_service(self) -> None:
+    @staticmethod
+    def stop_telegraf_service() -> None:
         """Stop the Telegraf service using systemctl."""
 
         _, err, ret = Systemctl.stop_unit("telegraf.service")
@@ -259,7 +260,8 @@ class Telegraf:
             return
         eprint("Telegraf service stopped successfully.")
 
-    def restart_telegraf_service(self) -> None:
+    @staticmethod
+    def restart_telegraf_service() -> None:
         """Restart the Telegraf service using systemctl."""
 
         _, err, ret = Systemctl.restart_unit("telegraf.service")
@@ -268,7 +270,8 @@ class Telegraf:
             return
         eprint("Telegraf service restarted successfully.")
 
-    def is_telegraf_service_active(self) -> bool:
+    @staticmethod
+    def is_telegraf_service_active() -> bool:
         """Check if the Telegraf service is active using systemctl."""
 
         return Systemctl.is_unit_active("telegraf.service")

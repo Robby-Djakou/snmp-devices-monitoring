@@ -47,9 +47,9 @@
 6. Clone the repository:
 
 ```bash
-git clone https://github.com/robbydjakou/snmp-dashboard.git
+git clone https://github.com/Robby-Djakou/snmp-devices-monitoring.git
 
-cd snmp-dashboard
+cd snmp-devices-monitoring
 
 python -m venv .venv
 source .venv/bin/activate  # Linux/macOS
